@@ -3,12 +3,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ProductService } from '../../services/product.service';
 import { Product } from '../../models/product.model';
-import { AddProductComponent } from '../add-product/add-product.component';
+import { AddEditProductComponent } from '../add-edit-product/add-edit-product.component';
 
 @Component({
   selector: 'app-product-list',
   standalone: true,
-  imports: [CommonModule, FormsModule, AddProductComponent],
+  imports: [CommonModule, FormsModule, AddEditProductComponent],
   templateUrl: './product-list.component.html',
   //styleUrls: ['./product-list.component.css']
 })
@@ -18,7 +18,8 @@ export class ProductListComponent implements OnInit {
   sortField: string = '';
   currentPage: number = 1;
   pageSize: number = 10;
-  newProduct: Product = { name: '', description: '', price: 0, quantity: 0 };
+  selectedProduct: Product = { name: '', description: '', price: 0, quantity: 0 };
+  isEditMode: boolean = false;
 
   constructor(private productService: ProductService) {}
 
@@ -54,11 +55,9 @@ export class ProductListComponent implements OnInit {
     this.loadProducts();
   }
 
-  onAddProduct(): void {
-    this.productService.addProduct(this.newProduct).subscribe(() => {
-      this.loadProducts();
-      this.newProduct = { name: '', description: '', price: 0, quantity: 0 };
-    });
+  onEditProduct(product: Product): void {
+    this.selectedProduct = { ...product };
+    this.isEditMode = true;
   }
 
   onDeleteProduct(productId: number): void {
