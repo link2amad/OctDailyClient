@@ -1,0 +1,29 @@
+<div>
+  <input type="text" placeholder="Search..."
+   (input)="onSearch($any($event.target).value)"
+    />
+  <table>
+    <thead>
+      <tr>
+        <th (click)="onSort('name')">Name</th>
+        <th (click)="onSort('description')">Description</th>
+        <th (click)="onSort('price')">Price</th>
+        <th (click)="onSort('quantity')">Quantity</th>
+        <!-- ...other headers... -->
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of products">
+        <td>{{ product.name }}</td>
+        <td>{{ product.description }}</td>
+        <td>{{ product.price }}</td>
+        <td>{{ product.quantity }}</td>
+        <!-- ...other columns... -->
+      </tr>
+    </tbody>
+  </table>
+  <div>
+    <button (click)="onPreviousPage()">Previous</button>
+    <button (click)="onNextPage()">Next</button>
+  </div>
+</div>
