@@ -16,6 +16,7 @@ export class ProductListComponent implements OnInit {
   products: any[] = [];
   searchQuery: string = '';
   sortField: string = '';
+  sortDirection: 'asc' | 'desc' = 'asc';
   currentPage: number = 1;
   pageSize: number = 3;
   selectedProduct: Product = { name: '', description: '', price: 0, quantity: 0 };
@@ -28,7 +29,7 @@ export class ProductListComponent implements OnInit {
   }
 
   loadProducts(): void {
-    this.productService.getProducts(this.searchQuery, this.sortField, this.currentPage, this.pageSize).subscribe((data: any) => {
+    this.productService.getProducts(this.searchQuery, this.sortField, this.sortDirection, this.currentPage, this.pageSize).subscribe((data: any) => {
       this.products = data["products"];
     });
   }
@@ -39,7 +40,12 @@ export class ProductListComponent implements OnInit {
   }
 
   onSort(field: string): void {
-    this.sortField = field;
+    if (this.sortField === field) {
+      this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+    } else {
+      this.sortField = field;
+      this.sortDirection = 'asc';
+    }
     this.loadProducts();
   }
 

@@ -12,10 +12,11 @@ export class ProductService {
 
   constructor(private http: HttpClient) {}
 
-  getProducts(searchQuery: string, sortField: string, page: number, pageSize: number): Observable<Product[]> {
+  getProducts(searchQuery: string, sortField: string, sortDirection: string, page: number, pageSize: number): Observable<Product[]> {
     let params = new HttpParams()
       .set('search', searchQuery)
       .set('sort', sortField)
+      .set('sortDirection', sortDirection)
       .set('page', page.toString())
       .set('pageSize', pageSize.toString());
 

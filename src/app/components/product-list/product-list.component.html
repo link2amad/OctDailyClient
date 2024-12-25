@@ -4,14 +4,23 @@
       <input type="text" class="form-control" placeholder="Search..." 
       (input)="onSearch($any($event.target).value)" >
     </div>
+    <div class="col">
+      <select class="form-control" (change)="onSort($any($event.target).value)">
+        <option value="">Sort By</option>
+        <option value="name">Name</option>
+        <option value="description">Description</option>
+        <option value="price">Price</option>
+        <option value="quantity">Quantity</option>
+      </select>
+    </div>
   </div>
   <table class="table table-striped table-hover">
     <thead class="thead-dark">
       <tr>
-        <th (click)="onSort('name')">Name</th>
-        <th (click)="onSort('description')">Description</th>
-        <th (click)="onSort('price')">Price</th>
-        <th (click)="onSort('quantity')">Quantity</th>
+        <th (click)="onSort('name')">Name <span>&#9650;&#9660;</span></th>
+        <th (click)="onSort('description')">Description <span>&#9650;&#9660;</span></th>
+        <th (click)="onSort('price')">Price <span>&#9650;&#9660;</span></th>
+        <th (click)="onSort('quantity')">Quantity <span>&#9650;&#9660;</span></th>
         <th>Actions</th>
         <!-- ...other headers... -->
       </tr>
