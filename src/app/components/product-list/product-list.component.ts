@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { ProductService } from '../../services/product.service';
 import { Product } from '../../models/product.model';
+import { AddProductComponent } from '../add-product/add-product.component';
 
 @Component({
   selector: 'app-product-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule, AddProductComponent],
   templateUrl: './product-list.component.html',
   //styleUrls: ['./product-list.component.css']
 })
@@ -16,6 +18,7 @@ export class ProductListComponent implements OnInit {
   sortField: string = '';
   currentPage: number = 1;
   pageSize: number = 10;
+  newProduct: Product = { name: '', description: '', price: 0, quantity: 0 };
 
   constructor(private productService: ProductService) {}
 
@@ -25,8 +28,7 @@ export class ProductListComponent implements OnInit {
 
   loadProducts(): void {
     this.productService.getProducts(this.searchQuery, this.sortField, this.currentPage, this.pageSize).subscribe((data: any) => {
-    
-        this.products = data["products"];
+      this.products = data["products"];
     });
   }
 
@@ -50,6 +52,13 @@ export class ProductListComponent implements OnInit {
   onNextPage(): void {
     this.currentPage++;
     this.loadProducts();
+  }
+
+  onAddProduct(): void {
+    this.productService.addProduct(this.newProduct).subscribe(() => {
+      this.loadProducts();
+      this.newProduct = { name: '', description: '', price: 0, quantity: 0 };
+    });
   }
 
   // ...other methods for CRUD operations...

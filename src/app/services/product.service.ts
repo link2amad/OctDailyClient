@@ -22,5 +22,9 @@ export class ProductService {
     return this.http.get<Product[]>(this.apiUrl, { params });
   }
 
+  addProduct(product: Product): Observable<Product> {
+    return this.http.post<Product>(this.apiUrl, product);
+  }
+
   // ...other CRUD methods (create, update, delete)...
 }
