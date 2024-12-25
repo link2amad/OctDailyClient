@@ -61,5 +61,11 @@ export class ProductListComponent implements OnInit {
     });
   }
 
+  onDeleteProduct(productId: number): void {
+    this.productService.deleteProduct(productId).subscribe(() => {
+      this.loadProducts();
+    });
+  }
+
   // ...other methods for CRUD operations...
 }

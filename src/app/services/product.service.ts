@@ -26,5 +26,9 @@ export class ProductService {
     return this.http.post<Product>(this.apiUrl, product);
   }
 
+  deleteProduct(productId: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${productId}`);
+  }
+
   // ...other CRUD methods (create, update, delete)...
 }

@@ -12,6 +12,7 @@
         <th (click)="onSort('description')">Description</th>
         <th (click)="onSort('price')">Price</th>
         <th (click)="onSort('quantity')">Quantity</th>
+        <th>Actions</th>
         <!-- ...other headers... -->
       </tr>
     </thead>
@@ -21,6 +22,9 @@
         <td>{{ product.description }}</td>
         <td>{{ product.price | currency }}</td>
         <td>{{ product.quantity }}</td>
+        <td>
+          <button class="btn btn-danger" (click)="onDeleteProduct(product.id)">Delete</button>
+        </td>
         <!-- ...other columns... -->
       </tr>
     </tbody>
