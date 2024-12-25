@@ -17,7 +17,7 @@ export class ProductListComponent implements OnInit {
   searchQuery: string = '';
   sortField: string = '';
   currentPage: number = 1;
-  pageSize: number = 10;
+  pageSize: number = 3;
   selectedProduct: Product = { name: '', description: '', price: 0, quantity: 0 };
   isEditMode: boolean = false;
 
@@ -64,6 +64,10 @@ export class ProductListComponent implements OnInit {
     this.productService.deleteProduct(productId).subscribe(() => {
       this.loadProducts();
     });
+  }
+
+  onProductAddedOrUpdated(): void {
+    this.loadProducts();
   }
 
   // ...other methods for CRUD operations...

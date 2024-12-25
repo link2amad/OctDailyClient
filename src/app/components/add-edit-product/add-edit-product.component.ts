@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ProductService } from '../../services/product.service';
@@ -14,6 +14,7 @@ import { Product } from '../../models/product.model';
 export class AddEditProductComponent implements OnChanges {
   @Input() product: Product = { name: '', description: '', price: 0, quantity: 0 };
   @Input() isEditMode: boolean = false;
+  @Output() productAddedOrUpdated = new EventEmitter<void>();
 
   constructor(private productService: ProductService) {}
 
@@ -27,10 +28,12 @@ export class AddEditProductComponent implements OnChanges {
     if (this.isEditMode) {
       this.productService.updateProduct(this.product).subscribe(() => {
         this.resetForm();
+        this.productAddedOrUpdated.emit();
       });
     } else {
       this.productService.addProduct(this.product).subscribe(() => {
         this.resetForm();
+        this.productAddedOrUpdated.emit();
       });
     }
   }
